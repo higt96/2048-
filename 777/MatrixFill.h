@@ -1,4 +1,5 @@
 #pragma once
+#include <ctime>
 class MatrixFill
 {
 public:
@@ -192,12 +193,13 @@ public:
 		
 		for (n = 0; n <4; n++) {
 			for (i = 0; i < 4; i++) {   //пошук пустих клітинок
-				if (field[i][n] = 0) {
+				if (field[i][n] == 0) {
 					r[o]=&field[i][n];   //заповнення масиву з ссилками на пусті клітинки
 					o++;
 				}
 			}
 		}
+		srand(time(NULL));
 		*r[rand() % o + 0]=2;  //присвоєння рандомному пустому елементу двойки
 		
 

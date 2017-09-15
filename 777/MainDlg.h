@@ -32,7 +32,7 @@ public:
 		SetIcon(hIcon, TRUE);
 		HICON hIconSmall = AtlLoadIconImage(IDR_MAINFRAME, LR_DEFAULTCOLOR, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON));
 		SetIcon(hIconSmall, FALSE);
-		vuvid();
+		vyvid();
 	
 
 		return TRUE;
@@ -59,31 +59,49 @@ public:
 	}
 	void vuvid()
 	{
-		MatrixFill ar;
-		ar.clearm();
-		ar.field[0][1]=2;
-		ar.field[0][2]=2;
-		ar.field[1][1]=8;
-		ar.field[2][0]=2;
-		ar.field[2][2] = 4;
-		ar.field[2][3] = 2;
-		ar.field[3][2] = 2;
-		ar.vpravo(); 
-		ar.vnyz();
-		ar.vverh();
-
-		for (int n = 0; n < 4; n++) {
-			for (int i = 0; i < 4; i++) {
-				wchar_t s[256];
-				wsprintfW(s, L"%d", ar.field[i][n]);
-				MessageBoxW(nullptr, s, MB_OK);
-			}
-	}
+		
+	//	for (int n = 0; n < 4; n++) {
+	//		for (int i = 0; i < 4; i++) {
+	//			wchar_t s[256];
+	//			wsprintfW(s, L"%d", ar.field[i][n]);
+	//			MessageBoxW(nullptr, s, MB_OK);
+	//		}
+//	}
 		
 		//SetDlgItemText(1015, s);
 		
-		//wsprintfW(buffer, L"%d", a);
-		//MessageBoxW(nullptr, buffer, MB_OK);
+
 	}
+
+	void vyvid()
+	{
+		int k=1000;
+		MatrixFill ar;
+		ar.clearm();
+		ar.field[0][1] = 2;
+		ar.field[0][3] = 2;
+		ar.field[1][1] = 8;
+		ar.field[2][0] = 2;
+		ar.field[2][2] = 4;
+		ar.field[2][3] = 2;
+		ar.field[3][2] = 2;
+		ar.randomfill();
+		//ar.vpravo();
+		//ar.vnyz();
+		//ar.vverh();
+		
+		wchar_t s[256];
+	
+		for (int i = 0; i < 4; i++) {
+			for (int n = 0; n < 4; n++) {
+			
+				wsprintfW(s, L"%d", ar.field[i][n]);
+				SetDlgItemText(k, s);
+		//		MessageBoxW(nullptr, s, MB_OK);
+				k++;
+			}
+		}
+	
+	};
 
 };
