@@ -3,6 +3,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "MatrixFill.h"
 
 class CMainDlg : public CDialogImpl<CMainDlg>
 {
@@ -58,10 +59,31 @@ public:
 	}
 	void vuvid()
 	{
-		//CMainDlg dlgMain;
-		//dlgMain.Create(NULL);
-		//SetDlgItemText(dlgMain.m_hWnd, 1015, L"2");
-		SetDlgItemText(1015, L"2");
+		MatrixFill ar;
+		ar.clearm();
+		ar.field[0][1]=2;
+		ar.field[0][2]=2;
+		ar.field[1][1]=8;
+		ar.field[2][0]=2;
+		ar.field[2][2] = 4;
+		ar.field[2][3] = 2;
+		ar.field[3][2] = 2;
+		ar.vpravo(); 
+		ar.vnyz();
+		ar.vverh();
+
+		for (int n = 0; n < 4; n++) {
+			for (int i = 0; i < 4; i++) {
+				wchar_t s[256];
+				wsprintfW(s, L"%d", ar.field[i][n]);
+				MessageBoxW(nullptr, s, MB_OK);
+			}
+	}
+		
+		//SetDlgItemText(1015, s);
+		
+		//wsprintfW(buffer, L"%d", a);
+		//MessageBoxW(nullptr, buffer, MB_OK);
 	}
 
 };

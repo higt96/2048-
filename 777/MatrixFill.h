@@ -17,32 +17,39 @@ public:
 		for (i = 0; i <4; i++) {			//перебираєм стовбці матриці
 			for (n = 3; n > 0; n--)       //перебираєм рядки матриці
 			{
-				if (field[i][n] = field[i][n - 1])  //Переше обєднання одинакових
+				if (field[i][n] == field[i][n - 1])  //Переше обєднання одинакових
 				{
 					field[i][n] = field[i][n] * 2;
 					field[i][n - 1] = 0;
 				}
 
 			}
-			for (n = 0; n < 3; n++)     //зсув цифр на пусті клітинки 3 проходи
+			for (s = 0; s < 3; s++)			// 3 проходи
 			{
-				if (field[i][n] != 0)  
+				for (n = 0; n < 3; n++)     //зсув цифр на пусті клітинки
 				{
-					if (field[i][n + 1] = 0) {
-						field[i][n + 1] = field[i][n];
-						field[i][n] = 0;
+					if (field[i][n] != 0)
+					{
+						if (field[i][n + 1] == 0) {
+							field[i][n + 1] = field[i][n];
+							field[i][n] = 0;
+						}
 					}
 				}
 			}
-			for (n = 3; n > 0; n--)   //друге обєднання одинакових
+			for (s = 0; s < 2; s++)			// 2 проходи
 			{
-				if (field[i][n] = field[i][n - 1])
+				for (n = 3; n > 0; n--)   //друге обєднання одинакових
 				{
-					field[i][n] = field[i][n] * 2;
-					field[i][n - 1] = 0;
-				}
+					if (field[i][n] == field[i][n - 1])
+					{
+						field[i][n] = field[i][n] * 2;
+						field[i][n - 1] = 0;
+					}
 
+				}
 			}
+			
 		}
 
 	};
@@ -53,34 +60,37 @@ public:
 		for (i = 0; i <4; i++) {   
 			for (n = 0; n < 3; n++)
 			{
-				if (field[i][n] = field[i][n + 1])
+				if (field[i][n] == field[i][n + 1])				//обєднання
 				{
 					field[i][n] = field[i][n] * 2;
 					field[i][n + 1] = 0;
 				}
 
 			}
-				for (s = 0; s < 3; s++)
+				for (s = 0; s < 3; s++)	
 				{
-					for (n = 3; n > 0; n++)
+					for (n = 3; n > 0; n--)			//зсув
 					{
 						if (field[i][n] != 0)
 						{
-							if (field[i][n - 1] = 0) {
+							if (field[i][n - 1] == 0) {
 								field[i][n - 1] = field[i][n];
 								field[i][n] = 0;
 							}
 						}
 					}
 				}
-				for (n = 0; n < 3; n++)
+				for (s = 0; s < 2; s++)			// 2 проходи
 				{
-					if (field[i][n] = field[i][n + 1])
+					for (n = 0; n < 3; n++)
 					{
-						field[i][n] = field[i][n] * 2;
-						field[i][n + 1] = 0;
-					}
+						if (field[i][n] == field[i][n + 1])				//обєднання
+						{
+							field[i][n] = field[i][n] * 2;
+							field[i][n + 1] = 0;
+						}
 
+					}
 				}
 		}
 
@@ -91,7 +101,7 @@ public:
 		for (n = 0; n <4; n++) {    //перебираєм стовбці
 			for (i = 0; i < 3; i++)    //рядки в стовбці
 			{
-				if (field[i][n] = field[i+1][n])
+				if (field[i][n] == field[i+1][n])
 				{
 					field[i][n] = field[i][n] * 2;
 					field[i+1][n] = 0;
@@ -100,26 +110,28 @@ public:
 			}
 			for (s = 0; s < 3; s++)
 			{
-				for (i = 3; i > 0; i++)
+				for (i = 3; i > 0; i--)
 				{
 					if (field[i][n] != 0)
 					{
-						if (field[i-1][n] = 0) {
+						if (field[i-1][n] == 0) {
 							field[i-1][n] = field[i][n];
 							field[i][n] = 0;
 						}
 					}
 				}
 			}
-
-			for (i = 0; i < 3; i++)
+			for (s = 0; s < 2; s++)			// 2 проходи
 			{
-				if (field[i][n] = field[i+1][n])
+				for (i = 0; i < 3; i++)
 				{
-					field[i][n] = field[i][n] * 2;
-					field[i+1][n] = 0;
-				}
+					if (field[i][n] == field[i + 1][n])
+					{
+						field[i][n] = field[i][n] * 2;
+						field[i + 1][n] = 0;
+					}
 
+				}
 			}
 		}
 
@@ -131,30 +143,36 @@ public:
 		for (n = 0; n <4; n++) {			
 			for (i = 3; i > 0; i--)       
 			{
-				if (field[i][n] = field[i-1][n])  {
+				if (field[i][n] == field[i-1][n])  {
 					field[i][n] = field[i][n] * 2;
 					field[i-1][n] = 0;
 				}
 
 			}
-			for (i = 0; i < 3; i++)     
+			for (s = 0; s < 3; s++)			// 3 проходи
 			{
-				if (field[i][n] != 0)
+				for (i = 0; i < 3; i++)
 				{
-					if (field[i+1][n] = 0) {
-						field[i+1][n] = field[i][n];
-						field[i][n] = 0;
+					if (field[i][n] != 0)
+					{
+						if (field[i + 1][n] == 0) {
+							field[i + 1][n] = field[i][n];
+							field[i][n] = 0;
+						}
 					}
 				}
 			}
-			for (i = 3; i > 0; i--)     
+			for (s = 0; s < 2; s++)			// 2 проходи
 			{
-				if (field[i][n] = field[i - 1][n])  
+				for (i = 3; i > 0; i--)
 				{
-					field[i][n] = field[i][n] * 2;
-					field[i - 1][n] = 0;
-				}
+					if (field[i][n] == field[i - 1][n])
+					{
+						field[i][n] = field[i][n] * 2;
+						field[i - 1][n] = 0;
+					}
 
+				}
 			}
 		}
 
@@ -183,7 +201,10 @@ public:
 		*r[rand() % o + 0]=2;  //присвоєння рандомному пустому елементу двойки
 		
 
-	}
+	};
+
+	
+	
 
 
  
