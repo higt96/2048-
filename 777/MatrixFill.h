@@ -3,7 +3,7 @@ class MatrixFill
 {
 public:
 	int field[4][4];
-	int i,n;
+	int i,n,s;
 
 	MatrixFill()
 	{
@@ -12,29 +12,152 @@ public:
 	~MatrixFill()
 	{
 	}
-	void vnyz()
+	void vpravo()     //	При назатті вправо
 	{
-		for (i = 3; i != 0; i--) {
-			for (n = 3; i != 0; n--) {
-				if (field[i][n]=0)
+		for (i = 0; i <4; i++) {			//перебираєм стовбці матриці
+			for (n = 3; n > 0; n--)       //перебираєм рядки матриці
+			{
+				if (field[i][n] = field[i][n - 1])  //Переше обєднання одинакових
 				{
-					field[i][n] = field[i][n - 1];
-					if (field[i][n - 2] = field[i][n - 3])
-					{
-						field[i][n-2] = field[i][n - 3];
-						field[i][n - 3] = 0;
-					}
-
-
-				}
-				else if (field[i][n] = field[i][n - 1])
-				{
-					field[i][n] = field[i][n - 1]*2;
+					field[i][n] = field[i][n] * 2;
 					field[i][n - 1] = 0;
 				}
-				
-				
+
 			}
+			for (n = 0; n < 3; n++)     //зсув цифр на пусті клітинки 3 проходи
+			{
+				if (field[i][n] != 0)  
+				{
+					if (field[i][n + 1] = 0) {
+						field[i][n + 1] = field[i][n];
+						field[i][n] = 0;
+					}
+				}
+			}
+			for (n = 3; n > 0; n--)   //друге обєднання одинакових
+			{
+				if (field[i][n] = field[i][n - 1])
+				{
+					field[i][n] = field[i][n] * 2;
+					field[i][n - 1] = 0;
+				}
+
+			}
+		}
+
+	};
+
+
+	void vlivo()
+	{
+		for (i = 0; i <4; i++) {   
+			for (n = 0; n < 3; n++)
+			{
+				if (field[i][n] = field[i][n + 1])
+				{
+					field[i][n] = field[i][n] * 2;
+					field[i][n + 1] = 0;
+				}
+
+			}
+				for (s = 0; s < 3; s++)
+				{
+					for (n = 3; n > 0; n++)
+					{
+						if (field[i][n] != 0)
+						{
+							if (field[i][n - 1] = 0) {
+								field[i][n - 1] = field[i][n];
+								field[i][n] = 0;
+							}
+						}
+					}
+				}
+				for (n = 0; n < 3; n++)
+				{
+					if (field[i][n] = field[i][n + 1])
+					{
+						field[i][n] = field[i][n] * 2;
+						field[i][n + 1] = 0;
+					}
+
+				}
+		}
+
+	};
+
+	void vverh()
+	{
+		for (n = 0; n <4; n++) {    //перебираєм стовбці
+			for (i = 0; i < 3; i++)    //рядки в стовбці
+			{
+				if (field[i][n] = field[i+1][n])
+				{
+					field[i][n] = field[i][n] * 2;
+					field[i+1][n] = 0;
+				}
+
+			}
+			for (s = 0; s < 3; s++)
+			{
+				for (i = 3; i > 0; i++)
+				{
+					if (field[i][n] != 0)
+					{
+						if (field[i-1][n] = 0) {
+							field[i-1][n] = field[i][n];
+							field[i][n] = 0;
+						}
+					}
+				}
+			}
+
+			for (i = 0; i < 3; i++)
+			{
+				if (field[i][n] = field[i+1][n])
+				{
+					field[i][n] = field[i][n] * 2;
+					field[i+1][n] = 0;
+				}
+
+			}
+		}
+
+	};
+
+
+	void vnyz()     
+	{
+		for (n = 0; n <4; n++) {			
+			for (i = 3; i > 0; i--)       
+			{
+				if (field[i][n] = field[i-1][n])  {
+					field[i][n] = field[i][n] * 2;
+					field[i-1][n] = 0;
+				}
+
+			}
+			for (i = 0; i < 3; i++)     
+			{
+				if (field[i][n] != 0)
+				{
+					if (field[i+1][n] = 0) {
+						field[i+1][n] = field[i][n];
+						field[i][n] = 0;
+					}
+				}
+			}
+			for (i = 3; i > 0; i--)     
+			{
+				if (field[i][n] = field[i - 1][n])  
+				{
+					field[i][n] = field[i][n] * 2;
+					field[i - 1][n] = 0;
+				}
+
+			}
+		}
+
 	};
 
  
