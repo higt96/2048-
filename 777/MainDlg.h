@@ -12,9 +12,11 @@ public:
 
 	BEGIN_MSG_MAP(CMainDlg)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
-		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
+		MESSAGE_HANDLER(WM_KEYUP, vyvid)
+		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)		
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
+		
 	END_MSG_MAP()
 
 // Handler prototypes (uncomment arguments if needed):
@@ -32,7 +34,8 @@ public:
 		SetIcon(hIcon, TRUE);
 		HICON hIconSmall = AtlLoadIconImage(IDR_MAINFRAME, LR_DEFAULTCOLOR, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON));
 		SetIcon(hIconSmall, FALSE);
-		vyvid();
+		vuvid();
+		
 	
 
 		return TRUE;
@@ -59,24 +62,8 @@ public:
 	}
 	void vuvid()
 	{
-		
-	//	for (int n = 0; n < 4; n++) {
-	//		for (int i = 0; i < 4; i++) {
-	//			wchar_t s[256];
-	//			wsprintfW(s, L"%d", ar.field[i][n]);
-	//			MessageBoxW(nullptr, s, MB_OK);
-	//		}
-//	}
-		
-		//SetDlgItemText(1015, s);
-		
-
-	}
-
-	void vyvid()
-	{
-		int k=1000;
 		MatrixFill ar;
+		int k = 1000;
 		ar.clearm();
 		ar.field[0][1] = 2;
 		ar.field[0][3] = 2;
@@ -85,23 +72,47 @@ public:
 		ar.field[2][2] = 4;
 		ar.field[2][3] = 2;
 		ar.field[3][2] = 2;
-		ar.randomfill();
-		//ar.vpravo();
-		//ar.vnyz();
-		//ar.vverh();
-		
 		wchar_t s[256];
-	
+
 		for (int i = 0; i < 4; i++) {
 			for (int n = 0; n < 4; n++) {
-			
+
 				wsprintfW(s, L"%d", ar.field[i][n]);
 				SetDlgItemText(k, s);
-		//		MessageBoxW(nullptr, s, MB_OK);
+				//		MessageBoxW(nullptr, s, MB_OK);
 				k++;
 			}
 		}
 	
+
+	}
+
+	LRESULT vyvid(UINT /*uMsg*/, WPARAM wID, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+	{
+		MatrixFill ar;
+				
+		
+		switch (wID) {
+		case 0x57:
+			ar.vlivo();
+			ar.randomfill();
+			break;
+		case 0x26:
+			ar.vverh();
+			ar.randomfill();
+			break;
+		case 0x27:
+			ar.vpravo();
+			ar.randomfill();
+			break;
+		case 0x28:
+			ar.vnyz(); 
+			ar.randomfill();
+			break;
+		}
+				
+		
+		return 1;
 	};
 
 };
