@@ -10,9 +10,23 @@ class CMainDlg : public CDialogImpl<CMainDlg>
 public:
 	enum { IDD = IDD_MAINDLG };
 
+	virtual BOOL PreTraslateMessage(MSG* pMsg)
+	{
+		if (pMsg->message ==WM_KEYDOWN)
+		{
+			vyvid(pMsg->wParam);
+		}
+		return CWindow::IsDialogMessage(pMsg);
+	}
+	virtual BOOL OnIdle()
+	{
+	UIUpdateChildWindows();
+		return FALSE;
+	}
+
 	BEGIN_MSG_MAP(CMainDlg)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
-		MESSAGE_HANDLER(WM_KEYUP, vyvid)
+		MESSAGE_HANDLER(WM_KEYUP, OnInitDialog)
 		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)		
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
@@ -87,7 +101,7 @@ public:
 
 	}
 
-	LRESULT vyvid(UINT /*uMsg*/, WPARAM wID, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+	void vyvid( WPARAM wID)
 	{
 		MatrixFill ar;
 				
@@ -112,7 +126,7 @@ public:
 		}
 				
 		
-		return 1;
+		//return 1;
 	};
 
 };
