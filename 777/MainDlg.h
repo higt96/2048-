@@ -1,36 +1,41 @@
 // MainDlg.h : interface of the CMainDlg class
 //
 /////////////////////////////////////////////////////////////////////////////
-
-#pragma once
 #include "MatrixFill.h"
+#pragma once
 
-class CMainDlg : public CDialogImpl<CMainDlg>
+class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
+		public CMessageFilter, public CIdleHandler
 {
 public:
 	enum { IDD = IDD_MAINDLG };
 
-	virtual BOOL PreTraslateMessage(MSG* pMsg)
+	virtual BOOL PreTranslateMessage(MSG* pMsg)
 	{
-		if (pMsg->message ==WM_KEYDOWN)
-		{
+		if (pMsg->message == WM_KEYDOWN)
+			 {
 			vyvid(pMsg->wParam);
-		}
+			}
 		return CWindow::IsDialogMessage(pMsg);
+		
 	}
+	
+
 	virtual BOOL OnIdle()
 	{
-	UIUpdateChildWindows();
+		UIUpdateChildWindows();
 		return FALSE;
 	}
 
+	BEGIN_UPDATE_UI_MAP(CMainDlg)
+	END_UPDATE_UI_MAP()
+
 	BEGIN_MSG_MAP(CMainDlg)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
-		MESSAGE_HANDLER(WM_KEYUP, OnInitDialog)
-		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)		
+		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
+		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
-		
 	END_MSG_MAP()
 
 // Handler prototypes (uncomment arguments if needed):
@@ -48,16 +53,33 @@ public:
 		SetIcon(hIcon, TRUE);
 		HICON hIconSmall = AtlLoadIconImage(IDR_MAINFRAME, LR_DEFAULTCOLOR, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON));
 		SetIcon(hIconSmall, FALSE);
-		vuvid();
-		
-	
+
+		// register object for message filtering and idle updates
+		CMessageLoop* pLoop = _Module.GetMessageLoop();
+		ATLASSERT(pLoop != NULL);
+		pLoop->AddMessageFilter(this);
+		pLoop->AddIdleHandler(this);
+
+		UIAddChildWindowContainer(m_hWnd);
+		//vuvid();
 
 		return TRUE;
 	}
 
+	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+	{
+		// unregister message filtering and idle updates
+		CMessageLoop* pLoop = _Module.GetMessageLoop();
+		ATLASSERT(pLoop != NULL);
+		pLoop->RemoveMessageFilter(this);
+		pLoop->RemoveIdleHandler(this);
+
+		return 0;
+	}
+
 	LRESULT OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		CSimpleDialog<IDD_ABOUTBOX, FALSE> dlg;
+		CAboutDlg dlg;
 		dlg.DoModal();
 		return 0;
 	}
@@ -65,16 +87,23 @@ public:
 	LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		// TODO: Add validation code 
-		EndDialog(wID);
+		CloseDialog(wID);
 		return 0;
 	}
 
 	LRESULT OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		EndDialog(wID);
+		CloseDialog(wID);
 		return 0;
 	}
-	void vuvid()
+
+	void CloseDialog(int nVal)
+	{
+		DestroyWindow();
+		::PostQuitMessage(nVal);
+	}
+
+	/*void vuvid()
 	{
 		MatrixFill ar;
 		int k = 1000;
@@ -97,36 +126,91 @@ public:
 				k++;
 			}
 		}
-	
 
-	}
 
-	void vyvid( WPARAM wID)
+	}*/
+
+	void vyvid(WPARAM wID)
 	{
 		MatrixFill ar;
-				
-		
+		wchar_t s[1000];
+		int k;
+
+
 		switch (wID) {
-		case 0x57:
+		case 37:
 			ar.vlivo();
 			ar.randomfill();
+			k = 1000;
+			for (int i = 0; i < 4; i++) {
+				for (int n = 0; n < 4; n++) {
+
+					wsprintfW(s, L"%d", field[i][n]);
+					SetDlgItemText(k, s);
+					//		MessageBoxW(nullptr, s, MB_OK);
+					k++;
+				}
+			}
 			break;
-		case 0x26:
+		case 38:
 			ar.vverh();
 			ar.randomfill();
+			k = 1000;
+			for (int i = 0; i < 4; i++) {
+				for (int n = 0; n < 4; n++) {
+
+					wsprintfW(s, L"%d", field[i][n]);
+					SetDlgItemText(k, s);
+					//		MessageBoxW(nullptr, s, MB_OK);
+					k++;
+				}
+			}
 			break;
-		case 0x27:
+		case 39:
 			ar.vpravo();
 			ar.randomfill();
+			k = 1000;
+			for (int i = 0; i < 4; i++) {
+				for (int n = 0; n < 4; n++) {
+
+					wsprintfW(s, L"%d", field[i][n]);
+					SetDlgItemText(k, s);
+					//		MessageBoxW(nullptr, s, MB_OK);
+					k++;
+				}
+			}
 			break;
-		case 0x28:
-			ar.vnyz(); 
+		case 40:
+			ar.vnyz();
 			ar.randomfill();
+			k = 1000;
+			for (int i = 0; i < 4; i++) {
+				for (int n = 0; n < 4; n++) {
+
+					wsprintfW(s, L"%d", field[i][n]);
+					SetDlgItemText(k, s);
+					//		MessageBoxW(nullptr, s, MB_OK);
+					k++;
+				}
+			}
+			break;
+		case 88:
+			ar.clearm();
+			ar.randomfill();
+			k = 1000;
+			for (int i = 0; i < 4; i++) {
+				for (int n = 0; n < 4; n++) {
+
+					wsprintfW(s, L"%d", field[i][n]);
+					SetDlgItemText(k, s);
+					//		MessageBoxW(nullptr, s, MB_OK);
+					k++;
+				}
+			}
 			break;
 		}
-				
-		
+
+
 		//return 1;
 	};
-
 };

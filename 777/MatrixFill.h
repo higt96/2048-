@@ -1,10 +1,11 @@
-#pragma once
+п»ї#pragma once
 #include <ctime>
+int field[4][4];
 class MatrixFill
 {
 public:
-	int field[4][4];
-	int i,n,s;
+	
+	int i, n, s;
 
 	MatrixFill()
 	{
@@ -13,21 +14,21 @@ public:
 	~MatrixFill()
 	{
 	}
-	void vpravo()     //	При назатті вправо
+	void vpravo()     
 	{
-		for (i = 0; i <4; i++) {			//перебираєм стовбці матриці
-			for (n = 3; n > 0; n--)       //перебираєм рядки матриці
+		for (i = 0; i <4; i++) {			
+			for (n = 3; n > 0; n--)     
 			{
-				if (field[i][n] == field[i][n - 1])  //Переше обєднання одинакових
+				if (field[i][n] == field[i][n - 1] && field[i][n]!=0)  
 				{
 					field[i][n] = field[i][n] * 2;
 					field[i][n - 1] = 0;
 				}
 
 			}
-			for (s = 0; s < 3; s++)			// 3 проходи
+			for (s = 0; s < 3; s++)			
 			{
-				for (n = 0; n < 3; n++)     //зсув цифр на пусті клітинки
+				for (n = 0; n < 3; n++)     
 				{
 					if (field[i][n] != 0)
 					{
@@ -38,11 +39,11 @@ public:
 					}
 				}
 			}
-			for (s = 0; s < 2; s++)			// 2 проходи
+			for (s = 0; s < 2; s++)			
 			{
-				for (n = 3; n > 0; n--)   //друге обєднання одинакових
+				for (n = 3; n > 0; n--)  
 				{
-					if (field[i][n] == field[i][n - 1])
+					if (field[i][n] == field[i][n - 1] && field[i][n] != 0)
 					{
 						field[i][n] = field[i][n] * 2;
 						field[i][n - 1] = 0;
@@ -50,7 +51,7 @@ public:
 
 				}
 			}
-			
+
 		}
 
 	};
@@ -58,54 +59,54 @@ public:
 
 	void vlivo()
 	{
-		for (i = 0; i <4; i++) {   
+		for (i = 0; i <4; i++) {
 			for (n = 0; n < 3; n++)
 			{
-				if (field[i][n] == field[i][n + 1])				//обєднання
+				if (field[i][n] == field[i][n + 1])				//Г®ГЎВєГ¤Г­Г Г­Г­Гї
 				{
 					field[i][n] = field[i][n] * 2;
 					field[i][n + 1] = 0;
 				}
 
 			}
-				for (s = 0; s < 3; s++)	
+			for (s = 0; s < 3; s++)
+			{
+				for (n = 3; n > 0; n--)			//Г§Г±ГіГў
 				{
-					for (n = 3; n > 0; n--)			//зсув
+					if (field[i][n] != 0)
 					{
-						if (field[i][n] != 0)
-						{
-							if (field[i][n - 1] == 0) {
-								field[i][n - 1] = field[i][n];
-								field[i][n] = 0;
-							}
+						if (field[i][n - 1] == 0) {
+							field[i][n - 1] = field[i][n];
+							field[i][n] = 0;
 						}
 					}
 				}
-				for (s = 0; s < 2; s++)			// 2 проходи
+			}
+			for (s = 0; s < 2; s++)			// 2 ГЇГ°Г®ГµГ®Г¤ГЁ
+			{
+				for (n = 0; n < 3; n++)
 				{
-					for (n = 0; n < 3; n++)
+					if (field[i][n] == field[i][n + 1])				//Г®ГЎВєГ¤Г­Г Г­Г­Гї
 					{
-						if (field[i][n] == field[i][n + 1])				//обєднання
-						{
-							field[i][n] = field[i][n] * 2;
-							field[i][n + 1] = 0;
-						}
+						field[i][n] = field[i][n] * 2;
+						field[i][n + 1] = 0;
+					}
 
-					}
 				}
+			}
 		}
 
 	};
 
 	void vverh()
 	{
-		for (n = 0; n <4; n++) {    //перебираєм стовбці
-			for (i = 0; i < 3; i++)    //рядки в стовбці
+		for (n = 0; n <4; n++) {    //ГЇГҐГ°ГҐГЎГЁГ°Г ВєГ¬ Г±ГІГ®ГўГЎГ¶Ві
+			for (i = 0; i < 3; i++)    //Г°ГїГ¤ГЄГЁ Гў Г±ГІГ®ГўГЎГ¶Ві
 			{
-				if (field[i][n] == field[i+1][n])
+				if (field[i][n] == field[i + 1][n])
 				{
 					field[i][n] = field[i][n] * 2;
-					field[i+1][n] = 0;
+					field[i + 1][n] = 0;
 				}
 
 			}
@@ -115,14 +116,14 @@ public:
 				{
 					if (field[i][n] != 0)
 					{
-						if (field[i-1][n] == 0) {
-							field[i-1][n] = field[i][n];
+						if (field[i - 1][n] == 0) {
+							field[i - 1][n] = field[i][n];
 							field[i][n] = 0;
 						}
 					}
 				}
 			}
-			for (s = 0; s < 2; s++)			// 2 проходи
+			for (s = 0; s < 2; s++)			// 2 ГЇГ°Г®ГµГ®Г¤ГЁ
 			{
 				for (i = 0; i < 3; i++)
 				{
@@ -139,18 +140,18 @@ public:
 	};
 
 
-	void vnyz()     
+	void vnyz()
 	{
-		for (n = 0; n <4; n++) {			
-			for (i = 3; i > 0; i--)       
+		for (n = 0; n <4; n++) {
+			for (i = 3; i > 0; i--)
 			{
-				if (field[i][n] == field[i-1][n])  {
+				if (field[i][n] == field[i - 1][n]) {
 					field[i][n] = field[i][n] * 2;
-					field[i-1][n] = 0;
+					field[i - 1][n] = 0;
 				}
 
 			}
-			for (s = 0; s < 3; s++)			// 3 проходи
+			for (s = 0; s < 3; s++)			// 3 ГЇГ°Г®ГµГ®Г¤ГЁ
 			{
 				for (i = 0; i < 3; i++)
 				{
@@ -163,7 +164,7 @@ public:
 					}
 				}
 			}
-			for (s = 0; s < 2; s++)			// 2 проходи
+			for (s = 0; s < 2; s++)			// 2 ГЇГ°Г®ГµГ®Г¤ГЁ
 			{
 				for (i = 3; i > 0; i--)
 				{
@@ -179,36 +180,36 @@ public:
 
 	};
 	void clearm() {
-		for (n = 0; n <4; n++) {  //заповнення матриці нулями
+		for (n = 0; n <4; n++) {  //Г§Г ГЇГ®ГўГ­ГҐГ­Г­Гї Г¬Г ГІГ°ГЁГ¶Ві Г­ГіГ«ГїГ¬ГЁ
 			for (i = 0; i < 4; i++) {
-				field[i][n]=0;
+				field[i][n] = 0;
 			}
 
-	}
+		}
 	};
 
-	void randomfill() {  
+	void randomfill() {
 		int *r[16] = {};
-		int o=0;
-		
+		int o = 0;
+
 		for (n = 0; n <4; n++) {
-			for (i = 0; i < 4; i++) {   //пошук пустих клітинок
+			for (i = 0; i < 4; i++) {   //ГЇГ®ГёГіГЄ ГЇГіГ±ГІГЁГµ ГЄГ«ВіГІГЁГ­Г®ГЄ
 				if (field[i][n] == 0) {
-					r[o]=&field[i][n];   //заповнення масиву з ссилками на пусті клітинки
+					r[o] = &field[i][n];   //Г§Г ГЇГ®ГўГ­ГҐГ­Г­Гї Г¬Г Г±ГЁГўГі Г§ Г±Г±ГЁГ«ГЄГ Г¬ГЁ Г­Г  ГЇГіГ±ГІВі ГЄГ«ВіГІГЁГ­ГЄГЁ
 					o++;
 				}
 			}
 		}
 		srand(time(NULL));
-		*r[rand() % o + 0]=2;  //присвоєння рандомному пустому елементу двойки
-		
+		if(o!=0)
+		*r[rand() % o + 0] = 2;  //ГЇГ°ГЁГ±ГўГ®ВєГ­Г­Гї Г°Г Г­Г¤Г®Г¬Г­Г®Г¬Гі ГЇГіГ±ГІГ®Г¬Гі ГҐГ«ГҐГ¬ГҐГ­ГІГі Г¤ГўГ®Г©ГЄГЁ
+
 
 	};
 
-	
-	
 
 
- 
+
+
+
 };
-
