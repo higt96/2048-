@@ -135,7 +135,8 @@ public:
 		MatrixFill ar;
 		wchar_t s[1000];
 		int k;
-
+		int l;
+		
 
 		switch (wID) {
 		case 37:
@@ -158,7 +159,6 @@ public:
 			k = 1000;
 			for (int i = 0; i < 4; i++) {
 				for (int n = 0; n < 4; n++) {
-
 					wsprintfW(s, L"%d", field[i][n]);
 					SetDlgItemText(k, s);
 					//		MessageBoxW(nullptr, s, MB_OK);
@@ -167,7 +167,7 @@ public:
 			}
 			break;
 		case 39:
-			ar.vpravo();
+			l=+ar.vpravo();
 			ar.randomfill();
 			k = 1000;
 			for (int i = 0; i < 4; i++) {
@@ -179,6 +179,8 @@ public:
 					k++;
 				}
 			}
+
+			
 			break;
 		case 40:
 			ar.vnyz();
@@ -198,6 +200,7 @@ public:
 			ar.clearm();
 			ar.randomfill();
 			k = 1000;
+			l=0;
 			for (int i = 0; i < 4; i++) {
 				for (int n = 0; n < 4; n++) {
 
@@ -208,9 +211,11 @@ public:
 				}
 			}
 			break;
+			
 		}
 
-
+		wsprintfW(s, L"%d", l);
+		SetDlgItemText(1016, s);
 		//return 1;
 	};
 };
