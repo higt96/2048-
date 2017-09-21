@@ -134,10 +134,7 @@ public:
 	{
 		MatrixFill ar;
 		wchar_t s[1000];
-		int k;
-		int l;
-		
-
+		int k;	
 		switch (wID) {
 		case 37:
 			ar.vlivo();
@@ -167,7 +164,7 @@ public:
 			}
 			break;
 		case 39:
-			l=+ar.vpravo();
+			ar.vpravo();
 			ar.randomfill();
 			k = 1000;
 			for (int i = 0; i < 4; i++) {
@@ -200,7 +197,7 @@ public:
 			ar.clearm();
 			ar.randomfill();
 			k = 1000;
-			l=0;
+			step=0;
 			for (int i = 0; i < 4; i++) {
 				for (int n = 0; n < 4; n++) {
 
@@ -214,7 +211,7 @@ public:
 			
 		}
 
-		wsprintfW(s, L"%d", l);
+		wsprintfW(s, L"%d", step);
 		SetDlgItemText(1016, s);
 		//return 1;
 	};
