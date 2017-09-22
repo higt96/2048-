@@ -36,6 +36,7 @@ public:
 		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
+		COMMAND_HANDLER(IDC_BUTTON1, BN_CLICKED, OnBnClickedButton1)
 	END_MSG_MAP()
 
 // Handler prototypes (uncomment arguments if needed):
@@ -145,6 +146,9 @@ public:
 
 					wsprintfW(s, L"%d", field[i][n]);
 					SetDlgItemText(k, s);
+					if (field[i][n] == 2048) {
+						MessageBoxW(nullptr, L"Win", MB_OK);
+					}
 					//		MessageBoxW(nullptr, s, MB_OK);
 					k++;
 				}
@@ -158,6 +162,9 @@ public:
 				for (int n = 0; n < 4; n++) {
 					wsprintfW(s, L"%d", field[i][n]);
 					SetDlgItemText(k, s);
+					if (field[i][n]==2048) {
+						MessageBoxW(nullptr, L"Win", MB_OK);
+					}
 					//		MessageBoxW(nullptr, s, MB_OK);
 					k++;
 				}
@@ -172,6 +179,9 @@ public:
 
 					wsprintfW(s, L"%d", field[i][n]);
 					SetDlgItemText(k, s);
+					if (field[i][n] == 2048) {
+						MessageBoxW(nullptr, L"Win", MB_OK);
+					}
 					//		MessageBoxW(nullptr, s, MB_OK);
 					k++;
 				}
@@ -188,6 +198,9 @@ public:
 
 					wsprintfW(s, L"%d", field[i][n]);
 					SetDlgItemText(k, s);
+					if (field[i][n] == 2048) {
+						MessageBoxW(nullptr, L"Win", MB_OK);
+					}
 					//		MessageBoxW(nullptr, s, MB_OK);
 					k++;
 				}
@@ -215,4 +228,25 @@ public:
 		SetDlgItemText(1016, s);
 		//return 1;
 	};
+	LRESULT OnBnClickedButton1(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		MatrixFill ar;
+		ar.clearm();
+		ar.randomfill();
+		wchar_t s[1000];
+		int k = 1000;
+		step = 0;
+		for (int i = 0; i < 4; i++) {
+			for (int n = 0; n < 4; n++) {
+
+				wsprintfW(s, L"%d", field[i][n]);
+				SetDlgItemText(k, s);
+				//		MessageBoxW(nullptr, s, MB_OK);
+				k++;
+			}
+		}
+
+		return 0;
+	}
+
 };

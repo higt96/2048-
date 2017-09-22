@@ -205,10 +205,11 @@ public:
 		for (int n = 0; n <4; n++) {  
 			for (int i = 0; i < 4; i++) {
 				field[i][n] = 0;
-				step=0;
+				
 			}
 
 		}
+		//step = 0;
 	};
 
 	void randomfill() {				
